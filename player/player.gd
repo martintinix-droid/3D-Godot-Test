@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+# comentario
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 func _unhandled_input(event):
@@ -34,3 +34,4 @@ func _physics_process(delta):
 		velocity.y=0.0
 	move_and_slide()
 	
+
