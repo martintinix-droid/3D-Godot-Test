@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dq2444waxec5u"]
+
+[ext_resource type="Script" uid="uid://cqorcwegm44pm" path="res://mob/mob.gd" id="1_6jlfs"]
+[ext_resource type="PackedScene" uid="uid://7wga4eobe4hm" path="res://mob/bat/Bat.tscn" id="1_7b8ug"]
+[ext_resource type="AudioStream" uid="uid://ds1ldexsdjm4s" path="res://mob/mob_take_damage.wav" id="3_mixeo"]
+[ext_resource type="AudioStream" uid="uid://bid4ctrxxysol" path="res://mob/mob_ko.wav" id="4_jkfaf"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6jlfs"]
+radius = 0.40335643
+
+[node name="mob" type="RigidBody3D" unique_id=1755556629]
+collision_layer = 2
+gravity_scale = 0.0
+script = ExtResource("1_6jlfs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1538020615]
+shape = SubResource("SphereShape3D_6jlfs")
+
+[node name="bat_model" parent="." unique_id=2005079753 instance=ExtResource("1_7b8ug")]
+unique_name_in_owner = true
+
+[node name="Timer" type="Timer" parent="." unique_id=1962584790]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="HurtSound" type="AudioStreamPlayer3D" parent="." unique_id=1146177934]
+unique_name_in_owner = true
+stream = ExtResource("3_mixeo")
+volume_db = -11.962
+
+[node name="DieSound" type="AudioStreamPlayer3D" parent="." unique_id=2085839060]
+unique_name_in_owner = true
+stream = ExtResource("4_jkfaf")
+volume_db = -13.459
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

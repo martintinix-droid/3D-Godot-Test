@@ -2,7 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://i05pih1gdxo8" path="res://player/player.tscn" id="1_80nbo"]
 [ext_resource type="Material" uid="uid://ul78288grr78" path="res://level/Block_.tres" id="1_feb5d"]
+[ext_resource type="Script" uid="uid://ibtaa4gfpk8s" path="res://game.gd" id="1_ryrav"]
 [ext_resource type="Material" uid="uid://d7ycy7umqpn0" path="res://level/Platform.tres" id="2_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://db2s013enqmff" path="res://mob/spawner/mob_spawner_3d.tscn" id="5_7jktm"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_7jktm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7jktm"]
+font_size = 50
+outline_size = 22
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Environment" id="Environment_7jktm"]
 background_mode = 1
@@ -17,6 +26,41 @@ fog_height = 0.04
 fog_height_density = 0.15
 
 [node name="Game" type="Node3D" unique_id=2110674458]
+script = ExtResource("1_ryrav")
+
+[node name="Kill Plane" type="Area3D" parent="." unique_id=1994521113]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kill Plane" unique_id=541829467]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+shape = SubResource("WorldBoundaryShape3D_7jktm")
+
+[node name="Label" type="Label" parent="." unique_id=299759953]
+unique_name_in_owner = true
+offset_left = 75.0
+offset_top = 62.0
+offset_right = 264.0
+offset_bottom = 131.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_7jktm")
+
+[node name="MobSpawner3D" parent="." unique_id=1219115962 instance=ExtResource("5_7jktm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1, 18)
+
+[node name="MobSpawner3D2" parent="." unique_id=1353638161 instance=ExtResource("5_7jktm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, -1, 18)
+
+[node name="MobSpawner3D3" parent="." unique_id=1252626710 instance=ExtResource("5_7jktm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, -1, -24)
+
+[node name="MobSpawner3D4" parent="." unique_id=1407763653 instance=ExtResource("5_7jktm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -1, -21)
+
+[node name="MobSpawner3D5" parent="." unique_id=1615703348 instance=ExtResource("5_7jktm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -1, -2)
+
+[node name="MobSpawner3D6" parent="." unique_id=1138822488 instance=ExtResource("5_7jktm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, -1, 21)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=242722745]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
@@ -137,6 +181,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=733594142]
 transform = Transform3D(1, 0, 0, 0, 0.50000006, 0.8660254, 0, -0.8660254, 0.50000006, 0, 4, 2)
+shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1871240776]
 environment = SubResource("Environment_7jktm")
+
+[connection signal="body_entered" from="Kill Plane" to="." method="_on_kill_plane_body_entered"]
+[connection signal="mob_spawned" from="MobSpawner3D" to="." method="_on_mob_spawner_3d_mob_spawned"]
+[connection signal="mob_spawned" from="MobSpawner3D2" to="." method="_on_mob_spawner_3d_mob_spawned"]
+[connection signal="mob_spawned" from="MobSpawner3D3" to="." method="_on_mob_spawner_3d_mob_spawned"]
+[connection signal="mob_spawned" from="MobSpawner3D4" to="." method="_on_mob_spawner_3d_mob_spawned"]
+[connection signal="mob_spawned" from="MobSpawner3D5" to="." method="_on_mob_spawner_3d_mob_spawned"]
+[connection signal="mob_spawned" from="MobSpawner3D6" to="." method="_on_mob_spawner_3d_mob_spawned"]

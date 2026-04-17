@@ -1,4 +1,8 @@
 extends CharacterBody3D
+
+@onready var audio_stream_player = %AudioStreamPlayer
+
+
 # Get mouse input
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -6,7 +10,7 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		#horizontal rotation
-		rotation_degrees.y -= event.relative.x*0.5
+		rotation_degrees.y -= event.screen_relative.x*0.5
 		#vertical rotation and clamping
 		%Head.rotation_degrees.x-=event.relative.y*0.2
 		%Head.rotation_degrees.x=clamp(%Head.rotation_degrees.x,-90,90)
@@ -47,6 +51,9 @@ func _physics_process(delta):
 func shoot_bullet():
 	const BULLET_3D = preload("uid://d2xy11166n41t")
 	var new_bullet=BULLET_3D.instantiate()
+	
+	audio_stream_player.play()
+	
 	%Marker3D.add_child(new_bullet)
 	
 	new_bullet.global_transform=%Marker3D.global_transform

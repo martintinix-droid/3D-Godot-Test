@@ -9,6 +9,7 @@ radius = 0.18110794
 [node name="Bullet3D" type="Area3D" unique_id=1443433479]
 transform = Transform3D(3.1391647e-07, 0, -1, 0, 1, 0, 1, 0, 3.1391647e-07, 0, 0, 0)
 top_level = true
+collision_mask = 3
 script = ExtResource("1_hgguu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1723179602]
@@ -16,3 +17,5 @@ shape = SubResource("SphereShape3D_hgguu")
 
 [node name="Projectile3D" parent="." unique_id=878989088 instance=ExtResource("1_kixxk")]
 transform = Transform3D(0.96000004, 0, 0, 0, 0.96000004, 0, 0, 0, 0.96000004, 0, 0, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
